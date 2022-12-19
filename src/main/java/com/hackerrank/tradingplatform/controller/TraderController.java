@@ -29,11 +29,11 @@ public class TraderController {
     }
 
     //get by email
-//    @RequestMapping(method = RequestMethod.GET)
-//    @ResponseStatus(HttpStatus.OK)
-//    public TraderDTO getTraderByEmail(@RequestParam("email") String email) {
-//        return new TraderDTO(traderService.getTraderByEmail(email));
-//    }
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public TraderDTO getTraderByEmail(@RequestParam("email") String email) {
+        return new TraderDTO(traderService.returnTraderByEmail(email));
+    }
 
     //get all
     @RequestMapping(value = "/all", method = RequestMethod.GET)

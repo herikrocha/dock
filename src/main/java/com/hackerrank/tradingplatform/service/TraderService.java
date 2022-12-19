@@ -3,6 +3,7 @@ package com.hackerrank.tradingplatform.service;
 import com.hackerrank.tradingplatform.dto.AddMoneyTraderDTO;
 import com.hackerrank.tradingplatform.dto.UpdateTraderDTO;
 import com.hackerrank.tradingplatform.exception.InvalidArgumentException;
+import com.hackerrank.tradingplatform.exception.ResourceNotFoundException;
 import com.hackerrank.tradingplatform.model.Trader;
 import com.hackerrank.tradingplatform.repository.TraderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class TraderService {
     @Autowired
     private TraderRepository traderRepository;
     private static final String TRADER_EMAIL_ALREADY_EXISTS = "Trader already exists with informed email.";
+    private static final String NOT_FOUND = "Trader not found with informed email.";
 
     public void registerTrader(Trader trader) throws ParseException {
         validateEmail(trader.getEmail());
@@ -59,5 +61,9 @@ public class TraderService {
         if (getTraderByEmail(email).isPresent()) {
             throw new InvalidArgumentException(TRADER_EMAIL_ALREADY_EXISTS);
         }
+    }
+
+    public Trader returnTraderByEmail(String email) {
+        return getTraderByEmail(email).orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND));
     }
 }
