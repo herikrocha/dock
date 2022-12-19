@@ -25,6 +25,7 @@ public class TraderService {
     public void registerTrader(Trader trader) throws ParseException {
         validateEmail(trader.getEmail());
         trader.setCreatedAt(Timestamp.from(Instant.now()));
+        trader.setUpdatedAt(Timestamp.from(Instant.now()));
         traderRepository.save(trader);
     }
 
