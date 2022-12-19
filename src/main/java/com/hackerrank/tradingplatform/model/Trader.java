@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class Trader implements Serializable {
@@ -59,15 +62,21 @@ public class Trader implements Serializable {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+    public void setCreatedAt(Timestamp createdAt) throws ParseException {
+        this.createdAt = formatDate(createdAt);
     }
 
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdatedAt(Timestamp updatedAt) throws ParseException {
+        this.updatedAt = formatDate(updatedAt);
+    }
+
+    private Timestamp formatDate(Timestamp date) throws ParseException {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date lFromDate1 = fmt.parse(String.valueOf(date));
+        return new Timestamp(lFromDate1.getTime());
     }
 }

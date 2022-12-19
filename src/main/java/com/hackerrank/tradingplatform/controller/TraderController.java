@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -23,16 +24,16 @@ public class TraderController {
     //register
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerTrader(@RequestBody @Valid Trader trader) {
+    public void registerTrader(@RequestBody @Valid Trader trader) throws ParseException {
         traderService.registerTrader(trader);
     }
 
     //get by email
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public TraderDTO getTraderByEmail(@RequestParam("email") String email) {
-        return new TraderDTO(traderService.getTraderByEmail(email));
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.OK)
+//    public TraderDTO getTraderByEmail(@RequestParam("email") String email) {
+//        return new TraderDTO(traderService.getTraderByEmail(email));
+//    }
 
     //get all
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -47,7 +48,7 @@ public class TraderController {
     //update by email
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void updateTrader(@RequestBody @Valid UpdateTraderDTO trader) {
+    public void updateTrader(@RequestBody @Valid UpdateTraderDTO trader) throws ParseException {
         traderService.updateTrader(trader);
     }
 
